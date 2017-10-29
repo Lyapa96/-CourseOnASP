@@ -1,0 +1,11 @@
+C:\Users\lms\Study\ASP\FirstHomework\FirstHomework\bin\Debug\netcoreapp2.0\FirstHomework.deps.json
+C:\Users\lms\Study\ASP\FirstHomework\FirstHomework\bin\Debug\netcoreapp2.0\FirstHomework.runtimeconfig.json
+C:\Users\lms\Study\ASP\FirstHomework\FirstHomework\bin\Debug\netcoreapp2.0\FirstHomework.runtimeconfig.dev.json
+C:\Users\lms\Study\ASP\FirstHomework\FirstHomework\bin\Debug\netcoreapp2.0\FirstHomework.dll
+C:\Users\lms\Study\ASP\FirstHomework\FirstHomework\bin\Debug\netcoreapp2.0\FirstHomework.pdb
+C:\Users\lms\Study\ASP\FirstHomework\FirstHomework\obj\Debug\netcoreapp2.0\FirstHomework.csprojResolveAssemblyReference.cache
+C:\Users\lms\Study\ASP\FirstHomework\FirstHomework\obj\Debug\netcoreapp2.0\FirstHomework.csproj.CoreCompileInputs.cache
+C:\Users\lms\Study\ASP\FirstHomework\FirstHomework\obj\Debug\netcoreapp2.0\FirstHomework.AssemblyInfoInputs.cache
+C:\Users\lms\Study\ASP\FirstHomework\FirstHomework\obj\Debug\netcoreapp2.0\FirstHomework.AssemblyInfo.cs
+C:\Users\lms\Study\ASP\FirstHomework\FirstHomework\obj\Debug\netcoreapp2.0\FirstHomework.dll
+C:\Users\lms\Study\ASP\FirstHomework\FirstHomework\obj\Debug\netcoreapp2.0\FirstHomework.pdb

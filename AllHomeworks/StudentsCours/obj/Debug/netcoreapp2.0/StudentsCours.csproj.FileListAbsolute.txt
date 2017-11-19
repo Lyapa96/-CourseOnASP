@@ -1,0 +1,11 @@
+C:\Users\lms\Study\ASP.NET\Homework\AllHomeworks\StudentsCours\bin\Debug\netcoreapp2.0\StudentsCours.deps.json
+C:\Users\lms\Study\ASP.NET\Homework\AllHomeworks\StudentsCours\bin\Debug\netcoreapp2.0\StudentsCours.runtimeconfig.json
+C:\Users\lms\Study\ASP.NET\Homework\AllHomeworks\StudentsCours\bin\Debug\netcoreapp2.0\StudentsCours.runtimeconfig.dev.json
+C:\Users\lms\Study\ASP.NET\Homework\AllHomeworks\StudentsCours\bin\Debug\netcoreapp2.0\StudentsCours.dll
+C:\Users\lms\Study\ASP.NET\Homework\AllHomeworks\StudentsCours\bin\Debug\netcoreapp2.0\StudentsCours.pdb
+C:\Users\lms\Study\ASP.NET\Homework\AllHomeworks\StudentsCours\obj\Debug\netcoreapp2.0\StudentsCours.csprojResolveAssemblyReference.cache
+C:\Users\lms\Study\ASP.NET\Homework\AllHomeworks\StudentsCours\obj\Debug\netcoreapp2.0\StudentsCours.csproj.CoreCompileInputs.cache
+C:\Users\lms\Study\ASP.NET\Homework\AllHomeworks\StudentsCours\obj\Debug\netcoreapp2.0\StudentsCours.AssemblyInfoInputs.cache
+C:\Users\lms\Study\ASP.NET\Homework\AllHomeworks\StudentsCours\obj\Debug\netcoreapp2.0\StudentsCours.AssemblyInfo.cs
+C:\Users\lms\Study\ASP.NET\Homework\AllHomeworks\StudentsCours\obj\Debug\netcoreapp2.0\StudentsCours.dll
+C:\Users\lms\Study\ASP.NET\Homework\AllHomeworks\StudentsCours\obj\Debug\netcoreapp2.0\StudentsCours.pdb

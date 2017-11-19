@@ -29,6 +29,7 @@ namespace SecondHomework.Controllers
 
         private static int _currentUniqueId = 2;
 
+        [HttpGet]
         public Student Get(int id)
         {
             return _students.FirstOrDefault(x => x.Id == id);
@@ -39,16 +40,19 @@ namespace SecondHomework.Controllers
         [Route("Home/Index")]
         [Route("Students")]
         [Route("Students/GetAll")]
+        [HttpGet]
         public Student[] GetAll()
         {
             return _students.ToArray();
         }
 
+        [HttpGet]
         public int Count()
         {
             return _students.Count();
         }
 
+        [HttpPost]
         public string Create(string firstName, string lastName, string email)
         {
             _students.Add(new Student
@@ -62,6 +66,20 @@ namespace SecondHomework.Controllers
             return $"Студент {lastName} {firstName} с id = {_currentUniqueId} успешно создан";
         }
 
+        [HttpPost]
+        public IActionResult CreateStudent([FromBody] Student student)
+        {
+            if (ModelState.IsValid)
+            {
+                student.Id = ++_currentUniqueId;
+                _students.Add(student);
+                return Json(student);
+            }
+
+            return BadRequest(ModelState);
+        }
+
+        [HttpPost]
         public string Update(int id, int pointsCount)
         {
             var student = _students.FirstOrDefault(x => x.Id == id);
@@ -72,6 +90,7 @@ namespace SecondHomework.Controllers
             return "Вы успешно изменили баллы студента";
         }
 
+        [HttpDelete]
         public string Delete(int id)
         {
             _students = _students.Where(x => x.Id != id).ToList();
@@ -79,6 +98,7 @@ namespace SecondHomework.Controllers
             return $"Студент удален с id = {id}";
         }
 
+        [HttpDelete]
         public string DeleteAll()
         {
             _students.Clear();

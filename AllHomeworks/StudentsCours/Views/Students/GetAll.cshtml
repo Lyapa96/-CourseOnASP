@@ -1,0 +1,35 @@
+﻿@model StudentsCours.Models.Student[]
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_StudentsLayout";
+}
+
+<h2>Все студенты курса</h2>
+<div style="margin-top: 20px;">
+    <dl>
+        @foreach (var student in Model)
+        {
+            <dt>
+                <span>@student.FirstName @student.LastName</span>
+            </dt>
+            <dd>
+                <a class="btn btn-primary" href="@Url.Action("Get", "Students")/@student.Id">Подробнее</a>
+            </dd>
+        }
+    </dl>
+</div>
+
+<style>
+    dl { margin-bottom: 10px; }
+
+    dt {
+        display: inline-block;
+        width: 30%;
+    }
+
+    dd {
+        display: inline-block;
+        width: 60%;
+    }
+</style>

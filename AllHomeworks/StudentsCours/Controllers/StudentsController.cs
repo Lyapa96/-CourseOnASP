@@ -30,9 +30,10 @@ namespace StudentsCours.Controllers
         private static int _currentUniqueId = 2;
 
         [HttpGet]
-        public Student Get(int id)
+        public IActionResult Get(int id)
         {
-            return _students.FirstOrDefault(x => x.Id == id);
+            var student = _students.FirstOrDefault(x => x.Id == id);
+            return View(student);
         }
 
         [Route("")]
@@ -41,9 +42,10 @@ namespace StudentsCours.Controllers
         [Route("Students")]
         [Route("Students/GetAll")]
         [HttpGet]
-        public Student[] GetAll()
+        public IActionResult GetAll()
         {
-            return _students.ToArray();
+            var students = _students.ToArray();
+            return View(students);
         }
 
         [HttpGet]
@@ -79,15 +81,28 @@ namespace StudentsCours.Controllers
             return BadRequest(ModelState);
         }
 
-        [HttpPost]
-        public string Update(int id, int pointsCount)
+        public IActionResult Update(int id)
         {
             var student = _students.FirstOrDefault(x => x.Id == id);
             if (student == null)
-                return "Студента с таким id не существует";
-            student.PointsCount = pointsCount;
+                return BadRequest(404);
 
-            return "Вы успешно изменили баллы студента";
+            return View(student);
+        }
+
+        [HttpPost]
+        public IActionResult Update(Student updatedStudent)
+        {
+            if (!ModelState.IsValid)
+            {
+                return Update(updatedStudent.Id);
+            }
+
+            var student = _students.First(x => x.Id == updatedStudent.Id);
+            _students.Remove(student);
+            _students.Add(updatedStudent);
+
+            return RedirectToAction("Get", updatedStudent);
         }
 
         [HttpDelete]

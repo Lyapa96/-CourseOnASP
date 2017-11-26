@@ -1,0 +1,47 @@
+﻿@model StudentsCours.Models.Student
+
+@{
+    ViewBag.Title = "Информация о студенте";
+    Layout = "_StudentsLayout";
+}
+
+<h2>Информация о студенте</h2>
+<div style="margin-top: 20px;">
+    <dl>
+        <dt>@Html.DisplayNameFor(m => m.Id)</dt>
+        <dd>@Html.DisplayFor(m => m.Id)</dd>
+
+        <dt>@Html.DisplayNameFor(m => m.FirstName)</dt>
+        <dd>@Html.DisplayFor(m => m.FirstName)</dd>
+
+        <dt>@Html.DisplayNameFor(m => m.LastName)</dt>
+        <dd>@Html.DisplayFor(m => m.LastName)</dd>
+        
+        <dt>@Html.DisplayNameFor(m => m.Email)</dt>
+        <dd>@Html.DisplayFor(m => m.Email)</dd>
+        
+        <dt>@Html.DisplayNameFor(m => m.PointsCount)</dt>
+        <dd>@Html.DisplayFor(m => m.PointsCount)</dd>
+    </dl>
+    
+    <div>
+        <a class="btn btn-primary" href="@Url.Action("Update", "Students")/@Model.Id">Редактировать</a>
+    </div>
+
+</div>
+
+<style>
+    dl {
+        margin-bottom: 10px;
+    }
+
+    dt {
+        display: inline-block;
+        width: 30%;
+    }
+
+    dd {
+        display: inline-block;
+        width: 60%;
+    }
+</style>

@@ -1,38 +1,25 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.DependencyInjection;
 using StudentsCours.Models;
+using StudentsCours.Storage;
 
 namespace StudentsCours.Controllers
 {
     public class StudentsController : Controller
     {
-        private static List<Student> _students = new List<Student>
-        {
-            new Student
-            {
-                Email = "email1",
-                FirstName = "Bruce",
-                LastName = "Lee",
-                Id = 1,
-                PointsCount = 10
-            },
-            new Student
-            {
-                Email = "email2",
-                FirstName = "Steven",
-                LastName = "Seagal",
-                Id = 2,
-                PointsCount = 15
-            }
-        };
+        private IStudentStorage _studentStorage;
 
-        private static int _currentUniqueId = 2;
+        public StudentsController(IStudentStorage studentStorage)
+        {
+            _studentStorage = studentStorage;
+        }
 
         [HttpGet]
-        public IActionResult Get(int id)
+        public IActionResult Get([FromServices] IStudentStorage storage, int id)
         {
-            var student = _students.FirstOrDefault(x => x.Id == id);
+            var student = storage.GetStudentById(id);
             return View(student);
         }
 
@@ -44,37 +31,44 @@ namespace StudentsCours.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            var students = _students.ToArray();
+            var students = _studentStorage.GetAllStudents().ToArray();
             return View(students);
         }
 
         [HttpGet]
-        public int Count()
+        public string Count()
         {
-            return _students.Count();
+            var count = ActivatorUtilities
+                .CreateInstance<StudentsCount>(HttpContext.RequestServices);
+
+            return count.CountFormat;
         }
 
         [HttpPost]
         public string Create(string firstName, string lastName, string email)
         {
-            _students.Add(new Student
+            var student = new Student
             {
                 FirstName = firstName,
                 LastName = lastName,
-                Email = email,
-                Id = ++_currentUniqueId
-            });
+                Email = email
+            };
 
-            return $"Студент {lastName} {firstName} с id = {_currentUniqueId} успешно создан";
+            _studentStorage.AddStudent(student);
+
+            return $"Студент {lastName} {firstName} с id = {student.Id} успешно создан";
         }
 
         [HttpPost]
         public IActionResult CreateStudent([FromBody] Student student)
         {
+            var storage = HttpContext
+                .RequestServices
+                .GetService<IStudentStorage>();
+
             if (ModelState.IsValid)
             {
-                student.Id = ++_currentUniqueId;
-                _students.Add(student);
+                storage.AddStudent(student);
                 return Json(student);
             }
 
@@ -83,7 +77,7 @@ namespace StudentsCours.Controllers
 
         public IActionResult Update(int id)
         {
-            var student = _students.FirstOrDefault(x => x.Id == id);
+            var student = _studentStorage.GetStudentById(id);
             if (student == null)
                 return BadRequest(404);
 
@@ -98,9 +92,7 @@ namespace StudentsCours.Controllers
                 return Update(updatedStudent.Id);
             }
 
-            var student = _students.First(x => x.Id == updatedStudent.Id);
-            _students.Remove(student);
-            _students.Add(updatedStudent);
+            _studentStorage.UpdateStudent(updatedStudent);
 
             return RedirectToAction("Get", updatedStudent);
         }
@@ -108,7 +100,7 @@ namespace StudentsCours.Controllers
         [HttpDelete]
         public string Delete(int id)
         {
-            _students = _students.Where(x => x.Id != id).ToList();
+            _studentStorage.DeleteById(id);
 
             return $"Студент удален с id = {id}";
         }
@@ -116,7 +108,7 @@ namespace StudentsCours.Controllers
         [HttpDelete]
         public string DeleteAll()
         {
-            _students.Clear();
+            _studentStorage.DeleteAll();
             return "Вы успешно удалили всех студентов";
         }
     }

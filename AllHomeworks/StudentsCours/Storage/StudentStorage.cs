@@ -1,65 +1,56 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using StudentsCours.Models;
 
 namespace StudentsCours.Storage
 {
     public class StudentStorage : IStudentStorage
     {
-        private List<Student> _students = new List<Student>
-        {
-            new Student
-            {
-                Email = "email1",
-                FirstName = "Bruce",
-                LastName = "Lee",
-                Id = 1,
-                PointsCount = 10
-            },
-            new Student
-            {
-                Email = "email2",
-                FirstName = "Steven",
-                LastName = "Seagal",
-                Id = 2,
-                PointsCount = 15
-            }
-        };
+        private readonly CourseContext _context;
 
-        private int _currentUniqueId = 2;
+        public StudentStorage(CourseContext context)
+        {
+            _context = context;
+        }
 
         public List<Student> GetAllStudents()
         {
-            return _students;
+            return _context.Students.ToList();
         }
 
         public Student GetStudentById(int id)
         {
-            return _students.FirstOrDefault(x => x.Id == id);
+            return _context.Students.FirstOrDefault(x => x.Id == id);
         }
 
         public void AddStudent(Student student)
         {
-            student.Id = ++_currentUniqueId;
-            _students.Add(student);
+            _context.Students.Add(student);
+            _context.SaveChanges();
         }
 
         public void UpdateStudent(Student newStudent)
         {
-            DeleteById(newStudent.Id);
-            _students.Add(newStudent);
+            var oldStudent = GetStudentById(newStudent.Id);
+            oldStudent.Email = newStudent.Email;
+            oldStudent.FirstName = newStudent.FirstName;
+            oldStudent.LastName = newStudent.LastName;
+            oldStudent.PointsCount = newStudent.PointsCount;
+
+            _context.SaveChanges();
         }
 
         public void DeleteById(int id)
         {
-            _students = _students.Where(x => x.Id != id).ToList();
+            var student = _context.Students.First(x => x.Id == id);
+            _context.Students.Remove(student);
+            _context.SaveChanges();
         }
 
         public void DeleteAll()
         {
-            _students.Clear();
+            _context.Students.RemoveRange(_context.Students);
+            _context.SaveChanges();
         }
     }
 }

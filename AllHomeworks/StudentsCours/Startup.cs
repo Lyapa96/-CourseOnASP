@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using StudentsCours.Storage;
@@ -9,6 +10,11 @@ namespace StudentsCours
 {
     public class Startup
     {
+        private const string ConnectionString = "Server=(localDb)\\mssqllocaldb;" +
+                                                "DataBase=CourseDb;" +
+                                                "Trusted_Connection=True;" +
+                                                "MultipleActiveResultSets=true;";
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -19,8 +25,9 @@ namespace StudentsCours
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<StudentStorage>();
-            services.AddSingleton<IStudentStorage, StudentStorage>();
+            services.AddDbContext<CourseContext>(options => options.UseSqlServer(ConnectionString));
+            services.AddScoped<StudentStorage>();
+            services.AddScoped<IStudentStorage, StudentStorage>();
             services.AddMvc();
         }
 

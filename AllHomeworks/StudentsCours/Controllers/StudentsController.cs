@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using StudentsCours.Models;
 using StudentsCours.Storage;
@@ -9,9 +7,9 @@ namespace StudentsCours.Controllers
 {
     public class StudentsController : Controller
     {
-        private IStudentStorage _studentStorage;
+        private readonly IStudentStorage _studentStorage;
 
-        public StudentsController(IStudentStorage studentStorage)
+        public StudentsController(StudentStorage studentStorage)
         {
             _studentStorage = studentStorage;
         }
@@ -88,9 +86,7 @@ namespace StudentsCours.Controllers
         public IActionResult Update(Student updatedStudent)
         {
             if (!ModelState.IsValid)
-            {
                 return Update(updatedStudent.Id);
-            }
 
             _studentStorage.UpdateStudent(updatedStudent);
 

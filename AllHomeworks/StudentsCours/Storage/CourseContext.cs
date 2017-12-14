@@ -14,5 +14,10 @@ namespace StudentsCours.Storage
         }
 
         public DbSet<Student> Students { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Student>().Property(s => s.Email).HasMaxLength(30);
+        }
     }
 }

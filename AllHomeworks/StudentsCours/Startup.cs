@@ -26,6 +26,7 @@ namespace StudentsCours
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<InformationAboutMe>(Configuration.GetSection("InformationAboutMe"));
             services.AddDbContext<CourseContext>(options => options.UseSqlServer(ConnectionString));
             services.AddScoped<StudentStorage>();
             services.AddScoped<IStudentStorage, StudentStorage>();

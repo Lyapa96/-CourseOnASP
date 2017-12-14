@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.Extensions.Options
+@using StudentsCours
+@inject IOptions<InformationAboutMe> me
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -34,7 +37,8 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; 2017 - Maksim Liapustin</p>
+            <p>&copy; 2017 - @me.Value.FullName</p>
+            <a style="cursor: pointer">@me.Value.Email</a>
         </footer>
     </div>
 

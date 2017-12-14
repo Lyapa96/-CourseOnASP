@@ -10,10 +10,11 @@ namespace StudentsCours
 {
     public class Startup
     {
-        private const string ConnectionString = "Server=(localDb)\\mssqllocaldb;" +
-                                                "DataBase=CourseDb;" +
-                                                "Trusted_Connection=True;" +
-                                                "MultipleActiveResultSets=true;";
+        private const string ConnectionString =
+            "Server=(localdb)\\mssqllocaldb;" +
+            "Database=StudentsDb;" +
+            "Trusted_Connection=True;" +
+            "MultipleActiveResultSets=true;";
 
         public Startup(IConfiguration configuration)
         {

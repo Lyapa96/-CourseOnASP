@@ -11,7 +11,6 @@ namespace StudentsCours.Storage
     {
         public CourseContext(DbContextOptions<CourseContext> options) : base(options)
         {
-            Database.EnsureCreated();
         }
 
         public DbSet<Student> Students { get; set; }
